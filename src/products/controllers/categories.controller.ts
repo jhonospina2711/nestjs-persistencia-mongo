@@ -43,4 +43,11 @@ export class CategoriesController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.remove(+id);
   }
+
+  // insert database
+
+  @Post('createdb')
+  createCategorydb(@Body() payload: CreateCategoryDto){
+    return this.categoriesService.createProductDb(payload);
+  }
 }

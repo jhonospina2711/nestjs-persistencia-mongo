@@ -5,6 +5,10 @@ export class CreateCategoryDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string;
 }
 
 export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {}

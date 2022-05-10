@@ -1,15 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { Category } from '../entities/category.entity';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/category.dtos';
-
+import { Db } from 'mongodb';
 @Injectable()
 export class CategoriesService {
+  constructor(@Inject('MONGO') private database: Db) {}
   private counterId = 1;
   private categories: Category[] = [
     {
       id: 1,
       name: 'Category 1',
+      description: 'Nueva Categoria',
     },
   ];
 
@@ -53,4 +55,12 @@ export class CategoriesService {
     this.categories.splice(index, 1);
     return true;
   }
+
+    // Registro en base de datos mongo
+
+    createProductDb(data: CreateCategoryDto){
+      const categoryCollection = this.database.collection('category');
+      return categoryCollection.insertOne(data);
+    }
+
 }
